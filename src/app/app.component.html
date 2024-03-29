@@ -65,7 +65,7 @@
         </div>
         <div class="overflow-x-auto overflow-visible">
             <table class="w-full text-left table-auto min-w-max">
-                <thead class="sticky top-0 bg-white">
+                <thead class="sticky top-[-2px] bg-white">
                     <tr>
                         <th
                             class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
@@ -128,9 +128,10 @@
                         <td class="p-4 border-b border-blue-gray-50">
                             {{ person.maritalStatus }}
                         </td>
-                        <td class=" border-b border-blue-gray-50 flex flex-col gap-1 overflow-x-auto overflow-visible max-h-40 ">
+                        <td
+                            class=" border-b border-blue-gray-50 flex flex-col gap-1 overflow-x-auto overflow-visible max-h-40 ">
                             <ng-container *ngFor="let address of person.addresses">
-                                <div class="border border-blue-gray-50 p-2">
+                                <div class="border border-blue-gray-50 p-2 m-2 rounded-2xl shadow">
                                     Cep: {{address.cep}},<br>
                                     Street: {{address.street}},<br>
                                     City: {{address.city}},<br>
