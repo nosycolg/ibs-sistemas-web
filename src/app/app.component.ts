@@ -7,7 +7,13 @@ interface People {
     gender: string;
     dateOfBirth: string;
     maritalStatus: string;
-    address: string;
+    addresses: {
+        cep: string,
+        street: string,
+        city: string,
+        state: string,
+        country: string,  
+    }[];
 }
 
 @Component({
