@@ -1,0 +1,192 @@
+<main class="w-full h-full m-auto justify-content align-center p-20">
+  <div class="flex flex-col text-gray-700 bg-white shadow-md rounded-xl bg-clip-border w-full h-full">
+    <div class="flex items-center justify-between gap-8 p-10 w-full">
+      <div class="w-1/6">
+        <button
+          class="w-full ml-auto select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          routerLink="/" type="button">
+          Voltar
+        </button>
+      </div>
+      <p class="text-2xl">
+        {{ pagination.data[0].person.name }}
+      </p>
+    </div>
+    <div class="overflow-x-auto overflow-visible h-full">
+      <table class="w-full text-left table-auto min-w-max">
+        <thead class="sticky top-[-2px] bg-white">
+          <tr>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50 m-auto">
+              <p
+                class="flex items-center justify-center gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70 text-center">
+                #
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Cep
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Street
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Street Number
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                District
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                City
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                State
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Country
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Complement
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Created at
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Updated at
+              </p>
+            </th>
+            <th
+              class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Address options
+              </p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let address of pagination.data">
+            <td class="p-4 border-b border-blue-gray-50 text-center">
+              {{ address.id }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50 text-center">
+              {{ address.cep }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.street }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.streetNumber }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.district }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.city }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.state }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.country }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ address.complement }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ formatTime(address.createdAt) }} <br />
+              {{ formatDate(address.createdAt) }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              {{ formatTime(address.createdAt) }} <br />
+              {{ formatDate(address.createdAt) }}
+            </td>
+            <td class="p-4 border-b border-blue-gray-50">
+              <button
+                class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button" (click)="openEditModal(address)">
+                Edit Address
+              </button>
+              <button
+                class="w-full block select-none items-center rounded-lg bg-red-800 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button" (click)="showConfirmateModal = true; selectedAddress = address">
+                Delete Address
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="pagination.data.length" class="flex items-center justify-between p-4 border-t border-blue-gray-50">
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+        Total {{ pagination.page + 1 | number }} of
+        {{ pagination.pages | number }}
+      </p>
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+        Total of {{ pagination.data.length }} people
+      </p>
+      <div class="flex gap-2">
+        <button
+          class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="button" (click)="getAddresses(pagination.page - 1)" [disabled]="pagination.page === 0">
+          Previous
+        </button>
+        <button
+          class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          type="button" (click)="getAddresses(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2">
+          Next
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!pagination.data.length">
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+        No people for now!
+      </p>
+    </div>
+  </div>
+</main>
+
+<app-confirmate-modal *ngIf="showConfirmateModal" (closeModal)="closeModal()" (confirmModal)="confirmModal()"
+  [confirmateTitleModal]="'Do you really want to delete this address?'"></app-confirmate-modal>
+
+<app-insert-and-edit-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress(selectedAddress)"/>
+
+<div *ngIf="showConfirmateModal || showEditModal" (click)="closeModal()" class="modal-overlay cursor-pointer"></div>

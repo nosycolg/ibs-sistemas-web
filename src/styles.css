@@ -4,7 +4,6 @@
 
 *::-webkit-scrollbar,
 *::-webkit-scrollbar-thumb {
-    height: 50%;
     width: 26px;
     border-radius: 13px;
     background-clip: padding-box;
@@ -17,10 +16,15 @@
 
 html,
 body {
-    height: 100%;
-    background-color: rgb(26, 26, 26);
-}
-body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(to top left, #311660, #7f3af5);
     margin: 0;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
+    height: 100%;
+}
+
+.toast-top-right > :nth-child(1) {
+    box-shadow: none;
 }
