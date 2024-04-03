@@ -5,21 +5,19 @@
         <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
           Ibs Sistemas
         </h5>
-        <p class="block font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-          Full Stack Developer Test
+        <p class="block font-sans text-base antialiased font-normal leading-relaxed text-gray-700"
+          translate="FULL_STACK_TEST">
         </p>
       </div>
       <div class="flex flex-col gap-2 justify-end shrink-0">
         <div class="flex gap-2" *ngIf="!USER_NAME">
           <button
             class="ml-auto w-1/2 select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            (click)="showLoginModal = true" type="button">
-            Login
+            (click)="showLoginModal = true" type="button" translate="LOGIN">
           </button>
           <button
             class="ml-auto w-1/2 select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            (click)="showRegisterModal = true" type="button">
-            Create Account
+            (click)="showRegisterModal = true" type="button" translate="CREATE_ACCOUNT">
           </button>
         </div>
         <div class="flex gap-2 ml-auto items-center" *ngIf="USER_NAME">
@@ -27,22 +25,20 @@
             {{ USER_NAME }}
           </p>
           <button
-            class="ml-auto w-1/2 select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            (click)="logout()" type="button">
-            Logout
+            class="ml-auto select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            (click)="logout()" type="button" translate="LOGOUT">
           </button>
         </div>
         <div class="flex flex-row gap-2 shrink-0">
           <button
             class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            (click)="openPersonModal(undefined)" type="button">
+            (click)="showCreatePeopleModal = true" *ngIf="USER_NAME" type="button" translate="ADD_PERSON">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
               stroke-width="2" class="w-4 h-4">
               <path
                 d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z">
               </path>
             </svg>
-            Add Person
           </button>
           <div class="w-full md:w-72">
             <div class="relative h-10 w-full min-w-[200px]">
@@ -57,15 +53,15 @@
                 class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                 placeholder=" " />
               <label
-                class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Search
+                class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
+                translate="SEARCH">
               </label>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="pagination.data.length" class="overflow-x-auto overflow-visible h-full">
+    <div class="overflow-x-auto overflow-y-auto overflow-visible h-full">
       <table class="w-full text-left table-auto min-w-max">
         <thead class="sticky top-[-2px] bg-white cursor-default">
           <tr>
@@ -77,51 +73,43 @@
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Name
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="NAME">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Gender
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="GENDER">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Date of Birth
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="DATE_OF_BIRTH">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Marital Status
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="MARITAL_STATUS">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Created at
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="CREATED_AT">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Updated at
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="UPDATED_AT">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Adresses Options
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="ADDRESSES_OPTIONS">
               </p>
             </th>
             <th class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Person Options
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="PERSON_OPTIONS">
               </p>
             </th>
           </tr>
@@ -131,81 +119,69 @@
             <td class="p-4 border-b border-blue-gray-50 text-center">
               {{ person.id }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 max-w-80 break-words">
               {{ person.name.toUpperCase() }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
-              {{ person.gender }}
+            <td class="p-4 border-b border-blue-gray-50 max-w-80" translate="{{person.gender}}">
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 max-w-80">
               {{ person.dateOfBirth }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
-              {{ person.maritalStatus }}
+            <td class="p-4 border-b border-blue-gray-50 max-w-80" translate="{{person.maritalStatus}}">
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 max-w-80">
               {{ formatTime(person?.createdAt) }} <br />
               {{ formatDate(person?.createdAt) }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 max-w-80">
               {{ formatTime(person?.createdAt) }} <br />
               {{ formatDate(person?.createdAt) }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 max-w-80">
               <ng-container>
                 <button *ngIf="person.addresses && person.addresses.length > 0"
                   class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button" routerLink="/addresses/{{ person.id }}">
-                  [{{ person.addresses.length }}] See Addresses
+                  type="button" routerLink="/addresses/{{ person.id }}" translate="SEE_ADDRESSES"
+                  [translateParams]="{addressLength: person.addresses.length}">
                 </button>
                 <button
                   class="w-full block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button" (click)="openInsertAddressModal(person.name, person)">
-                  Insert Address
+                  type="button" (click)="openInsertAddressModal(person.name, person)" translate="INSERT_ADDRESS">
                 </button>
               </ng-container>
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 max-w-80">
               <button
                 class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button" (click)="openPersonModal(person)">
-                Edit Person
+                type="button" translate="EDIT_PERSON">
               </button>
               <button
                 class="w-full block select-none items-center rounded-lg bg-red-800 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                (click)="showConfirmateModal = true; selectedPerson = person" type="button">
-                Delete Person
+                (click)="showConfirmateModal = true; selectedPerson = person" type="button" translate="DELETE_PERSON">
               </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div *ngIf="pagination.data.length" class="flex items-center justify-between p-4 border-t border-blue-gray-50">
-      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-        Total {{ pagination.page + 1 | number }} of
-        {{ pagination.pages | number }}
+    <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
+        translate="TOTAL_OF_PAGES" [translateParams]="{actualPage: pagination.page + 1, pages: pagination.pages}">
       </p>
-      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-        Total of {{ pagination.data.length }} people
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
+        translate="TOTAL_OF_PEOPLE" [translateParams]="{peopleLength: pagination.data.length}">
       </p>
       <div class="flex gap-2">
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getPeople(pagination.page - 1)" [disabled]="pagination.page == 0">
-          Previous
+          type="button" (click)="getPeople(pagination.page - 1)" [disabled]="pagination.page == 0" translate="PREVIOUS">
         </button>
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getPeople(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2">
-          Next
+          type="button" (click)="getPeople(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2"
+          translate="NEXT">
         </button>
       </div>
-    </div>
-    <div *ngIf="!pagination.data.length">
-      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-        No people for now!
-      </p>
     </div>
   </div>
 </main>
@@ -213,11 +189,11 @@
 <app-confirmate-modal *ngIf="showConfirmateModal" (closeModal)="closeModal()" (confirmModal)="confirmModal()"
   [confirmateTitleModal]="'Do you really want to delete this person?'" />
 
-<app-insert-and-edit-address-modal *ngIf="showinsertAddressModal" (closeModal)="closeModal()"
+<app-insert-address-modal *ngIf="showinsertAddressModal" (closeModal)="closeModal()"
   (insertAddress)="insertAddress($event)" />
 
-<app-create-and-edit-person-modal *ngIf="showCreateAndEditPeopleModal" (closeModal)="closeModal()"
-  (createPerson)="createPerson($event)" (editPerson)="editPerson($event)" />
+<app-create-person-modal *ngIf="showCreatePeopleModal" (closeModal)="closeModal()"
+  (createPerson)="createPerson($event)" />
 
 <app-register-modal *ngIf="showRegisterModal" (closeModal)="closeModal()" (register)="register($event)" />
 
@@ -225,7 +201,7 @@
 
 <div *ngIf="
     showLoginModal ||
-    showCreateAndEditPeopleModal ||
+    showCreatePeopleModal ||
     showRegisterModal ||
     showinsertAddressModal ||
     showConfirmateModal ||

@@ -4,13 +4,9 @@
       <div class="w-1/6">
         <button
           class="w-full ml-auto select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          routerLink="/" type="button">
-          Voltar
+          routerLink="/" type="button" translate="BACK">
         </button>
       </div>
-      <p class="text-2xl">
-        {{ pagination.data[0].person.name }}
-      </p>
     </div>
     <div class="overflow-x-auto overflow-visible h-full">
       <table class="w-full text-left table-auto min-w-max">
@@ -25,79 +21,68 @@
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Cep
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="CEP">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Street
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="STREET">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Street Number
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="STREET_NUMBER">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                District
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="DISTRICT">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                City
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="CITY">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                State
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="STATE">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Country
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="COUNTRY">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Complement
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="COMPLEMENT">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Created at
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="CREATED_AT">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Updated at
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="UPDATED_AT">
               </p>
             </th>
             <th
               class="p-4 transition-colors cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
-              <p
-                class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Address options
+              <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
+                translate="ADDRESSES_OPTIONS">
               </p>
             </th>
           </tr>
@@ -107,28 +92,28 @@
             <td class="p-4 border-b border-blue-gray-50 text-center">
               {{ address.id }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50 text-center">
+            <td class="p-4 border-b border-blue-gray-50 text-center max-w-80">
               {{ address.cep }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-word max-w-80">
               {{ address.street }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-word max-w-80">
               {{ address.streetNumber }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-word max-w-80">
               {{ address.district }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-word max-w-80">
               {{ address.city }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-word max-w-80">
               {{ address.state }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-words max-w-80">
               {{ address.country }}
             </td>
-            <td class="p-4 border-b border-blue-gray-50">
+            <td class="p-4 border-b border-blue-gray-50 break-words max-w-80">
               {{ address.complement }}
             </td>
             <td class="p-4 border-b border-blue-gray-50">
@@ -142,13 +127,12 @@
             <td class="p-4 border-b border-blue-gray-50">
               <button
                 class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button" (click)="openEditModal(address)">
-                Edit Address
+                type="button" (click)="openEditModal(address)" translate="EDIT_ADDRESS">
               </button>
               <button
                 class="w-full block select-none items-center rounded-lg bg-red-800 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button" (click)="showConfirmateModal = true; selectedAddress = address">
-                Delete Address
+                type="button" (click)="showConfirmateModal = true; selectedAddress = address"
+                translate="DELETE_ADDRESS">
               </button>
             </td>
           </tr>
@@ -156,37 +140,31 @@
       </table>
     </div>
     <div *ngIf="pagination.data.length" class="flex items-center justify-between p-4 border-t border-blue-gray-50">
-      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-        Total {{ pagination.page + 1 | number }} of
-        {{ pagination.pages | number }}
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
+        translate="TOTAL_OF_PAGES" [translateParams]="{actualPage: pagination.page + 1, pages: pagination.pages}">
       </p>
-      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-        Total of {{ pagination.data.length }} people
+      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
+        translate="TOTAL_OF_ADDRESSES" [translateParams]="{addressesLength: pagination.data.length}">
       </p>
       <div class="flex gap-2">
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getAddresses(pagination.page - 1)" [disabled]="pagination.page === 0">
-          Previous
+          type="button" (click)="getAddresses(pagination.page - 1)" [disabled]="pagination.page === 0"
+          translate="PREVIOUS">
         </button>
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getAddresses(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2">
-          Next
+          type="button" (click)="getAddresses(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2"
+          translate="NEXT">
         </button>
       </div>
-    </div>
-    <div *ngIf="!pagination.data.length">
-      <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-        No people for now!
-      </p>
     </div>
   </div>
 </main>
 
 <app-confirmate-modal *ngIf="showConfirmateModal" (closeModal)="closeModal()" (confirmModal)="confirmModal()"
   [confirmateTitleModal]="'Do you really want to delete this address?'"></app-confirmate-modal>
-
-<app-insert-and-edit-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress(selectedAddress)"/>
+<!--
+<app-insert-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress(selectedAddress)"/> -->
 
 <div *ngIf="showConfirmateModal || showEditModal" (click)="closeModal()" class="modal-overlay cursor-pointer"></div>

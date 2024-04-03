@@ -57,86 +57,76 @@ export class RegisterModalComponent {
 }
 
 @Component({
-    selector: 'app-create-and-edit-person-modal',
-    templateUrl: './views/create-and-edit-person-modal.component.html',
+    selector: 'app-create-person-modal',
+    templateUrl: './views/create-person-modal.component.html',
     styleUrls: ['../app.component.css']
 })
-export class CreateAndEditPersonModalComponent {
+export class CreatePersonModalComponent {
     @Output() closeModal = new EventEmitter<void>();
     @Output() createPerson = new EventEmitter<People>();
-    @Output() editPerson = new EventEmitter<People>();
-    person: People | null = null;
-
-    constructor(private selectedPersonService: SelectedPersonService) {}
-
-    ngOnInit() {
-        this.selectedPersonService.getSelectedPerson().subscribe(person => {
-            this.person = person;
-        });
-    }
+    person: People = {
+      id: 0,
+      name: '',
+      gender: '',
+      dateOfBirth: '',
+      maritalStatus: '',
+      addresses: []
+    };
 
     handleCloseModal() {
         this.closeModal.emit();
     }
 
     handleCreatePerson() {
-        if (!this.person) return;
         this.createPerson.emit(this.person);
-    }
-
-    handleEditPerson() {
-        this.editPerson.emit(this.person!);
     }
 }
 
 @Component({
-    selector: 'app-insert-and-edit-address-modal',
-    templateUrl: './views/insert-and-edit-address-modal.component.html',
+    selector: 'app-insert-address-modal',
+    templateUrl: './views/insert-address-modal.component.html',
     styleUrls: ['../app.component.css']
 })
-export class InsertAndEditAddressModalComponent {
+export class InsertAddressModalComponent {
     @Output() closeModal = new EventEmitter<void>();
     @Output() insertAddress = new EventEmitter<Addresses>();
-    @Output() editAddress = new EventEmitter<Addresses>();
     @Input() selectedPersonName = '';
-    address: Addresses | null = null;
+    address: Addresses = {
+      id: 0,
+      cep: '',
+      street: '',
+      streetNumber: '',
+      district: '',
+      city: '',
+      state: '',
+      country: '',
+      complement: '',
+      person: {} as People
+    }
 
     constructor(
-        private toastr: ToastrService,
-        private apiService: ApiService,
-        private selectedAddressService: SelectedAdressService
-    ) {}
-
-    ngOnInit() {
-      this.selectedAddressService.getSelectedAddress().subscribe(address => {
-          this.address = address;
-      });
-  }
+      private toastr: ToastrService,
+      private apiService: ApiService
+  ) {}
 
     async searchCep() {
-        if (!this.address!.cep) {
-            return;
-        }
-        const complete = await this.apiService.searchCep(this.address!.cep);
-        if (complete) {
-            this.address!.street = complete.logradouro;
-            this.address!.district = complete.bairro;
-            this.address!.city = complete.localidade;
-            this.address!.state = complete.uf;
-            this.address!.country = 'Brasil';
-        }
+      if (!this.address.cep) {
+          return;
+      }
+      const complete = await this.apiService.searchCep(this.address.cep);
+      if (complete) {
+          this.address!.street = complete.logradouro;
+          this.address!.district = complete.bairro;
+          this.address!.city = complete.localidade;
+          this.address!.state = complete.uf;
+          this.address!.country = 'Brasil';
+      }
 
-        this.toastr.success('Cep loaded!');
-    }
+      this.toastr.success('Cep loaded!');
+  }
 
     handleInsertAddress() {
-      if (!this.address) return;
         this.insertAddress.emit(this.address);
-    }
-
-    handleEditAddress() {
-      if (!this.address) return;
-        this.editAddress.emit(this.address);
     }
 
     handleCloseModal() {

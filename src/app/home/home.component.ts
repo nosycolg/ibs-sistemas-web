@@ -5,8 +5,7 @@ import {
     ApiService,
     PagesData,
     People,
-    UserData,
-    SelectedPersonService
+    UserData
 } from '../../services/app-api.service';
 
 @Component({
@@ -16,7 +15,7 @@ import {
 })
 export class HomeComponent {
     showLoginModal: boolean = false;
-    showCreateAndEditPeopleModal: boolean = false;
+    showCreatePeopleModal: boolean = false;
     showinsertAddressModal: boolean = false;
     showRegisterModal: boolean = false;
     showConfirmateModal: boolean = false;
@@ -31,9 +30,8 @@ export class HomeComponent {
     };
 
     constructor(
-        private selectedPersonService: SelectedPersonService,
         private toastr: ToastrService,
-        private apiService: ApiService
+        private apiService: ApiService,
     ) {}
 
     async ngOnInit() {
@@ -74,8 +72,6 @@ export class HomeComponent {
                 pages: people.pages,
                 data: people.data
             };
-
-            console.log(this.pagination);
         } catch (error) {
             console.error('Error fetching people data:', error);
         }
@@ -104,6 +100,7 @@ export class HomeComponent {
             await this.apiService.createPerson(data);
 
             this.closeModal();
+            this.toastr.success('Successfully created person');
             this.getPeople(this.pagination.page);
         } catch (error) {
             console.error('Error fetching people data:', error);
@@ -123,12 +120,14 @@ export class HomeComponent {
     async deletePerson(people: People) {
         await this.apiService.deletePerson(people.id);
         this.closeModal();
+        this.toastr.success(`Successfully deleted ${people.name}`);
         return await this.getPeople(this.pagination.page);
     }
 
     async insertAddress(data: any) {
         await this.apiService.insertAddress(data, this.selectedPerson!.id);
         this.closeModal();
+        this.toastr.success('Address addess sucessfully');
         return await this.getPeople(this.pagination.page);
     }
 
@@ -160,26 +159,11 @@ export class HomeComponent {
     }
 
     closeModal() {
-        this.selectedPersonService.setSelectedPerson({
-            id: 0,
-            name: '',
-            gender: '',
-            dateOfBirth: '',
-            maritalStatus: '',
-            createdAt: undefined,
-            updatedAt: undefined,
-            addresses: []
-        });
         this.showLoginModal = false;
-        this.showCreateAndEditPeopleModal = false;
+        this.showCreatePeopleModal = false;
         this.showRegisterModal = false;
         this.showinsertAddressModal = false;
         this.showConfirmateModal = false;
-    }
-
-    openPersonModal(person: People | undefined) {
-        this.selectedPersonService.setSelectedPerson(person);
-        this.showCreateAndEditPeopleModal = true;
     }
 
     errorToast(value: string) {
@@ -195,7 +179,6 @@ export class HomeComponent {
     }
 
     sumNumbers(input: number, output: number) {
-        console.log(Number(input) + Number(output));
         return Number(input) + Number(output);
     }
 }

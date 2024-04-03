@@ -4,12 +4,18 @@ import { AddressesComponent } from './adresses/addresses.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'addresses/:id', component: AddressesComponent }
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'addresses/:id',
+    component: AddressesComponent,
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

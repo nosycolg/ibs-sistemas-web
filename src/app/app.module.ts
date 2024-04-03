@@ -14,45 +14,61 @@ import { AddressesComponent } from './adresses/addresses.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import {
-    LoginModalComponent,
-    RegisterModalComponent,
-    CreateAndEditPersonModalComponent,
-    InsertAndEditAddressModalComponent,
-    ConfirmateModalComponent
+  LoginModalComponent,
+  RegisterModalComponent,
+  CreatePersonModalComponent,
+  ConfirmateModalComponent,
+  InsertAddressModalComponent,
 } from './modals/modals.component';
-import { HttpClientModule } from '@angular/common/http';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        AddressesComponent,
-        LoginModalComponent,
-        RegisterModalComponent,
-        CreateAndEditPersonModalComponent,
-        InsertAndEditAddressModalComponent,
-        ConfirmateModalComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ToastrModule.forRoot(),
-        HttpClientModule,
-        NgxMaskDirective,
-        NgxMaskPipe
-    ],
-    providers: [
-        provideRouter(routes),
-        provideAnimationsAsync(),
-        provideAnimations(),
-        provideToastr({
-            progressBar: true,
-            preventDuplicates: true
-        }),
-        provideNgxMask()
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AddressesComponent,
+    LoginModalComponent,
+    RegisterModalComponent,
+    CreatePersonModalComponent,
+    InsertAddressModalComponent,
+    ConfirmateModalComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ToastrModule.forRoot(),
+    HttpClientModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
+  ],
+  providers: [
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideAnimations(),
+    provideToastr({
+      progressBar: true,
+      preventDuplicates: true,
+    }),
+    provideNgxMask(),
+    HttpClient
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

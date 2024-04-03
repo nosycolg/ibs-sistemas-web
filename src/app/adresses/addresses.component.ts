@@ -92,6 +92,7 @@ export class AddressesComponent {
 
     confirmModal() {
         this.deleteAddress(this.selectedAddress.id);
+        this.getAddresses(this.pagination.page);
     }
 
     formatTime(date?: Date) {
