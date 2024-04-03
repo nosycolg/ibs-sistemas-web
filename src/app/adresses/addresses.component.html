@@ -163,8 +163,8 @@
 </main>
 
 <app-confirmate-modal *ngIf="showConfirmateModal" (closeModal)="closeModal()" (confirmModal)="confirmModal()"
-  [confirmateTitleModal]="'Do you really want to delete this address?'"></app-confirmate-modal>
-<!--
-<app-insert-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress(selectedAddress)"/> -->
+  [confirmateTitleModal]="'DELETE_ADDRESS_QUESTION'"></app-confirmate-modal>
+
+<!-- <app-insert-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress(selectedAddress)"/> -->
 
 <div *ngIf="showConfirmateModal || showEditModal" (click)="closeModal()" class="modal-overlay cursor-pointer"></div>

@@ -48,5 +48,18 @@
   "FEMALE": "Female",
   "NON_BINARY": "Non-binary",
   "TRANSGENDER": "Transgender",
-  "OTHER": "Other"
+  "OTHER": "Other",
+  "DELETE_PERSON_QUESTION": "Do you really want to delete this person?",
+  "DELETE_ADDRESS_QUESTION": "Do you really want to delete this address?",
+  "LOGIN_SUCCESSFUL": "Login successful!",
+  "REGISTERED_SUCCESS": "Registered successfully!",
+  "CREATED_PERSON_SUCCESS": "Person created successfully!",
+  "CREATED_ADDRESS_SUCCESS": "Address created successfully!",
+  "REMOVED_TOKEN": "Token removed successfully!",
+  "NAME_REQUIRED": "Please fill in the Name field",
+  "GENDER_REQUIRED": "Please select a gender",
+  "BIRTHDAY_REQUIRED": "Please select a date of birth",
+  "MARITAL_STATUS_REQUIRED": "Please select a marital status",
+  "SUCESS_DELETE": "{{peopleName}} successfully deleted",
+  "WISH_CONGRATULATIONS": "I wish congratulations to the inserted person! Today is their day!"
 }

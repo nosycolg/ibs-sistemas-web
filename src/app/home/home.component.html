@@ -187,7 +187,7 @@
 </main>
 
 <app-confirmate-modal *ngIf="showConfirmateModal" (closeModal)="closeModal()" (confirmModal)="confirmModal()"
-  [confirmateTitleModal]="'Do you really want to delete this person?'" />
+  [confirmateTitleModal]="'DELETE_PERSON_QUESTION'" />
 
 <app-insert-address-modal *ngIf="showinsertAddressModal" (closeModal)="closeModal()"
   (insertAddress)="insertAddress($event)" />

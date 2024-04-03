@@ -48,5 +48,18 @@
   "FEMALE": "Femenino",
   "NON_BINARY": "No binario",
   "TRANSGENDER": "Transgénero",
-  "OTHER": "Otro"
+  "OTHER": "Otro",
+  "DELETE_PERSON_QUESTION": "¿Realmente quieres eliminar a esta persona?",
+  "DELETE_ADDRESS_QUESTION": "¿Realmente deseas eliminar esta dirección?",
+  "LOGIN_SUCCESSFUL": "¡Inicio de sesión exitoso!",
+  "REGISTERED_SUCCESS": "¡Registrado exitosamente!",
+  "CREATED_PERSON_SUCCESS": "¡Persona creada exitosamente!",
+  "CREATED_ADDRESS_SUCCESS": "¡Dirección creada exitosamente!",
+  "REMOVED_TOKEN": "¡Token removido exitosamente!",
+  "NAME_REQUIRED": "Por favor complete el campo Nombre",
+  "GENDER_REQUIRED": "Por favor seleccione un género",
+  "BIRTHDAY_REQUIRED": "Por favor seleccione una fecha de nacimiento",
+  "MARITAL_STATUS_REQUIRED": "Por favor seleccione un estado civil",
+  "SUCESS_DELETE": "{{peopleName}} eliminado(a) exitosamente",
+  "WISH_CONGRATULATIONS": "¡Deseo felicitar a la persona insertada! ¡Hoy es su día!"
 }

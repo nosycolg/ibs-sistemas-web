@@ -25,6 +25,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgParticlesModule } from 'ng-particles';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -39,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegisterModalComponent,
     CreatePersonModalComponent,
     InsertAddressModalComponent,
-    ConfirmateModalComponent,
+    ConfirmateModalComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    NgParticlesModule
   ],
   providers: [
     provideRouter(routes),
