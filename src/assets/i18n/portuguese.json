@@ -61,5 +61,6 @@
   "BIRTHDAY_REQUIRED": "Selecione uma data de nascimento",
   "MARITAL_STATUS_REQUIRED": "Selecione um estado civil",
   "SUCESS_DELETE": "{{peopleName}} deletado(a) com sucesso",
-  "WISH_CONGRATULATIONS": "Deseje parabéns para a pessoa inserida! Hoje é o dia dela!"
+  "WISH_CONGRATULATIONS": "Deseje parabéns para a pessoa inserida! Hoje é o dia dela!",
+  "CONFIRM_PASSWORD": "Confirmar senha"
 }

@@ -61,5 +61,6 @@
   "BIRTHDAY_REQUIRED": "Please select a date of birth",
   "MARITAL_STATUS_REQUIRED": "Please select a marital status",
   "SUCESS_DELETE": "{{peopleName}} successfully deleted",
-  "WISH_CONGRATULATIONS": "Congratulations to the person entered! Today is their day!"
+  "WISH_CONGRATULATIONS": "Congratulations to the person entered! Today is their day!",
+  "CONFIRM_PASSWORD": "Confirm password"
 }

@@ -22,7 +22,7 @@ export class LoginModalComponent {
   }
 
   handleLogin() {
-    this.login.emit({ username: 'nosycolg', password: 'Cristhian08!' });
+    this.login.emit({ username: this.username, password: this.password });
   }
 }
 
@@ -40,13 +40,14 @@ export class RegisterModalComponent {
 
   username: string = '';
   password: string = '';
+  repeatedPassword: string = '';
 
   handleCloseModal() {
     this.closeModal.emit();
   }
 
   handleRegister() {
-    this.register.emit({ username: 'nosycolg', password: 'Cristhian08!' });
+    this.register.emit({ username: this.username, password: this.password });
   }
 }
 

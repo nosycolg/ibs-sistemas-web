@@ -61,7 +61,7 @@ export class HomeComponent {
   }
 
   async register(data: UserData) {
-    await this.apiService.register(data);
+        await this.apiService.register(data);
     this.successToast('REGISTERED_SUCCESS');
     this.closeModal();
     return this.openLoginModal();
@@ -162,8 +162,6 @@ export class HomeComponent {
     localStorage.removeItem('USER_NAME');
     localStorage.removeItem('BEARER_TOKEN');
     window.location.reload();
-
-    this.errorToast('REMOVED_TOKEN');
   }
 
   particles(): void {
