@@ -3,9 +3,58 @@
     <div class="flex items-center justify-between gap-8 p-10 w-full">
       <div class="w-1/6">
         <button
-          class="w-full ml-auto select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          class="h-10 w-full ml-auto select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           routerLink="/" type="button" translate="BACK">
         </button>
+      </div>
+      <div class="w-[400px]">
+        <div class="h-10 w-full flex items-center">
+          <select [(ngModel)]="category" (change)="searchChange()"
+            class="peer w-1/2 rounded-[7px] rounded-r-none border border-r-0 border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+            <option value="street" translate="STREET"></option>
+            <option value="district" translate="DISTRICT"></option>
+            <option value="city" translate="CITY"></option>
+            <option value="state" translate="STATE"></option>
+          </select>
+          <div *ngIf="category != 'state'" class="w-full h-full">
+            <input
+              class="appearance-none border rounded-r-lg h-full w-full text-gray-700 py-3 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Search" [(ngModel)]="search" (keyup.enter)="getAddresses(1, category, search)">
+          </div>
+          <div *ngIf="category == 'state'" class="w-full h-full">
+            <select id="state" name="state" [(ngModel)]="search"
+              class="w-full h-full rounded-r-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="" (change)="getAddresses(1, category, search)">
+              <option value="AC">Acre (AC)</option>
+              <option value="AL">Alagoas (AL)</option>
+              <option value="AP">Amapá (AP)</option>
+              <option value="AM">Amazonas (AM)</option>
+              <option value="BA">Bahia (BA)</option>
+              <option value="CE">Ceará (CE)</option>
+              <option value="DF">Distrito Federal (DF)</option>
+              <option value="ES">Espírito Santo (ES)</option>
+              <option value="GO">Goiás (GO)</option>
+              <option value="MA">Maranhão (MA)</option>
+              <option value="MT">Mato Grosso (MT)</option>
+              <option value="MS">Mato Grosso do Sul (MS)</option>
+              <option value="MG">Minas Gerais (MG)</option>
+              <option value="PA">Pará (PA)</option>
+              <option value="PB">Paraíba (PB)</option>
+              <option value="PR">Paraná (PR)</option>
+              <option value="PE">Pernambuco (PE)</option>
+              <option value="PI">Piauí (PI)</option>
+              <option value="RJ">Rio de Janeiro (RJ)</option>
+              <option value="RN">Rio Grande do Norte (RN)</option>
+              <option value="RS">Rio Grande do Sul (RS)</option>
+              <option value="RO">Rondônia (RO)</option>
+              <option value="RR">Roraima (RR)</option>
+              <option value="SC">Santa Catarina (SC)</option>
+              <option value="SP">São Paulo (SP)</option>
+              <option value="SE">Sergipe (SE)</option>
+              <option value="TO">Tocantins (TO)</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
     <div class="overflow-x-auto overflow-visible h-full">
@@ -88,7 +137,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let address of pagination.data">
+          <tr *ngFor="let address of pagination.results">
             <td class="p-4 border-b border-blue-gray-50 text-center">
               {{ address.id }}
             </td>
@@ -127,7 +176,7 @@
             <td class="p-4 border-b border-blue-gray-50">
               <button
                 class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button" (click)="openEditModal(address)" translate="EDIT_ADDRESS">
+                type="button" (click)="showEditModal = true; selectedAddress = address" translate="EDIT_ADDRESS">
               </button>
               <button
                 class="w-full block select-none items-center rounded-lg bg-red-800 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -139,22 +188,22 @@
         </tbody>
       </table>
     </div>
-    <div *ngIf="pagination.data.length" class="flex items-center justify-between p-4 border-t border-blue-gray-50">
+    <div *ngIf="pagination.results.length" class="flex items-center justify-between p-4 border-t border-blue-gray-50">
       <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-        translate="TOTAL_OF_PAGES" [translateParams]="{actualPage: pagination.page + 1, pages: pagination.pages}">
+        translate="TOTAL_OF_PAGES" [translateParams]="{actualPage: pagination.page, pages: pagination.pages}">
       </p>
       <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-        translate="TOTAL_OF_ADDRESSES" [translateParams]="{addressesLength: pagination.data.length}">
+        translate="TOTAL_OF_ADDRESSES" [translateParams]="{addressesLength: pagination.results.length}">
       </p>
       <div class="flex gap-2">
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getAddresses(pagination.page - 1)" [disabled]="pagination.page === 0"
+          type="button" (click)="getAddresses(pagination.page - 1)" [disabled]="pagination.page === 1"
           translate="PREVIOUS">
         </button>
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getAddresses(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2"
+          type="button" (click)="getAddresses(pagination.page + 1)" [disabled]="pagination.page === pagination.pages"
           translate="NEXT">
         </button>
       </div>
@@ -165,6 +214,7 @@
 <app-confirmate-modal *ngIf="showConfirmateModal" (closeModal)="closeModal()" (confirmModal)="confirmModal()"
   [confirmateTitleModal]="'DELETE_ADDRESS_QUESTION'"></app-confirmate-modal>
 
-<!-- <app-insert-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress(selectedAddress)"/> -->
+<app-edit-address-modal *ngIf="showEditModal" (closeModal)="closeModal()" (editAddress)="editAddress($event)"
+  [selectedAddress]="selectedAddress" />
 
 <div *ngIf="showConfirmateModal || showEditModal" (click)="closeModal()" class="modal-overlay cursor-pointer"></div>

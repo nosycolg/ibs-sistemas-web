@@ -31,7 +31,7 @@
         </div>
         <div class="flex flex-row gap-2 shrink-0">
           <button
-            class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            class="w-48 flex select-none justify-center items-center gap-3 rounded-lg bg-gray-900 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             (click)="showCreatePeopleModal = true" *ngIf="USER_NAME" type="button" translate="ADD_PERSON">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
               stroke-width="2" class="w-4 h-4">
@@ -40,22 +40,38 @@
               </path>
             </svg>
           </button>
-          <div class="w-full md:w-72">
-            <div class="relative h-10 w-full min-w-[200px]">
-              <div class="absolute grid w-5 h-5 top-2/4 right-3 -translate-y-2/4 place-items-center text-blue-gray-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                  stroke="currentColor" aria-hidden="true" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-                </svg>
+          <div class="w-[400px]">
+            <div class="h-10 w-full flex items-center">
+              <select [(ngModel)]="category" (change)="searchChange()"
+                class="peer w-1/2 rounded-[7px] rounded-r-none border border-r-0 border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                <option value="name" translate="NAME"></option>
+                <option value="gender" translate="GENDER"></option>
+                <option value="maritalStatus" translate="MARITAL_STATUS"></option>
+              </select>
+              <div *ngIf="category == 'name'" class="w-full h-full">
+                <input
+                  class="appearance-none border rounded-r-lg h-full w-full text-gray-700 py-3 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Search" [(ngModel)]="search" (keyup.enter)="getPeople(1, category, search)">
               </div>
-              <input
-                class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                placeholder=" " />
-              <label
-                class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
-                translate="SEARCH">
-              </label>
+              <div *ngIf="category == 'gender' || category == 'maritalStatus'" class="w-full h-full">
+                <select *ngIf="category == 'gender'" id="gender" name="gender" [(ngModel)]="search"
+                  class="w-full h-full rounded-r-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="" (change)="getPeople(1, category, search)">
+                  <option value="MALE" translate="MALE"></option>
+                  <option value="FEMALE" translate="FEMALE"></option>
+                  <option value="NON_BINARY" translate="NON_BINARY"></option>
+                  <option value="TRANSGENDER" translate="TRANSGENDER"></option>
+                  <option value="OTHER" translate="OTHER"></option>
+                </select>
+                <select *ngIf="category == 'maritalStatus'" id="maritalStatus" name="maritalStatus" [(ngModel)]="search"
+                  class="w-full h-full rounded-r-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="" (change)="getPeople(1, category, search)">
+                  <option value="SINGLE" translate="SINGLE"></option>
+                  <option value="MARRIED" translate="MARRIED"></option>
+                  <option value="DIVORCED" translate="DIVORCED"></option>
+                  <option value="WIDOWED" translate="WIDOWED"></option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -115,7 +131,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let person of pagination.data">
+          <tr *ngFor="let person of pagination.results">
             <td class="p-4 border-b border-blue-gray-50 text-center">
               {{ person.id }}
             </td>
@@ -153,11 +169,11 @@
             <td class="p-4 border-b border-blue-gray-50 max-w-80">
               <button
                 class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="button" translate="EDIT_PERSON">
+                type="button" translate="EDIT_PERSON" (click)="showEditPeopleModal = true; selectedPerson = person">
               </button>
               <button
                 class="w-full block select-none items-center rounded-lg bg-red-800 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                (click)="showConfirmateModal = true; selectedPerson = person" type="button" translate="DELETE_PERSON">
+                (click)="showConfirmateModal = true" type="button" translate="DELETE_PERSON">
               </button>
             </td>
           </tr>
@@ -166,20 +182,21 @@
     </div>
     <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
       <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-        translate="TOTAL_OF_PAGES" [translateParams]="{actualPage: pagination.page + 1, pages: pagination.pages}">
+        translate="TOTAL_OF_PAGES" [translateParams]="{actualPage: pagination.page, pages: pagination.pages}">
       </p>
       <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900"
-        translate="TOTAL_OF_PEOPLE" [translateParams]="{peopleLength: pagination.data.length}">
+        translate="TOTAL_OF_PEOPLE" [translateParams]="{peopleLength: pagination.results.length}">
       </p>
       <div class="flex gap-2">
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getPeople(pagination.page - 1)" [disabled]="pagination.page == 0" translate="PREVIOUS">
+          type="button" (click)="getPeople(pagination.page - 1, category, search)" [disabled]="pagination.page == 1"
+          translate="PREVIOUS">
         </button>
         <button
           class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button" (click)="getPeople(pagination.page + 1)" [disabled]="pagination.page > pagination.pages - 2"
-          translate="NEXT">
+          type="button" (click)="getPeople(pagination.page + 1, category, search)"
+          [disabled]="pagination.page === pagination.pages" translate="NEXT">
         </button>
       </div>
     </div>
@@ -194,6 +211,9 @@
 
 <app-create-person-modal *ngIf="showCreatePeopleModal" (closeModal)="closeModal()"
   (createPerson)="createPerson($event)" />
+
+<app-edit-person-modal *ngIf="showEditPeopleModal" (closeModal)="closeModal()" (editPerson)="editPerson($event)"
+  [selectedPerson]="selectedPerson" />
 
 <app-register-modal *ngIf="showRegisterModal" (closeModal)="closeModal()" (register)="register($event)" />
 

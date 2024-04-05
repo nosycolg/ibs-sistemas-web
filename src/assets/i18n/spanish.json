@@ -61,5 +61,5 @@
   "BIRTHDAY_REQUIRED": "Por favor seleccione una fecha de nacimiento",
   "MARITAL_STATUS_REQUIRED": "Por favor seleccione un estado civil",
   "SUCESS_DELETE": "{{peopleName}} eliminado(a) exitosamente",
-  "WISH_CONGRATULATIONS": "¡Deseo felicitar a la persona insertada! ¡Hoy es su día!"
+  "WISH_CONGRATULATIONS": "¡Felicitar a la persona insertada! ¡Hoy es su día!"
 }

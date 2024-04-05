@@ -26,10 +26,12 @@ export class HomeComponent {
   selectedPersonName: string = '';
   selectedPerson: People | null = null;
   pagination: PagesData = {
-    page: 0,
+    page: 1,
     pages: 0,
-    data: [],
+    results: [],
   };
+  search: string = '';
+  category: string = 'name';
 
   constructor(
     private toastr: ToastrService,
@@ -69,13 +71,13 @@ export class HomeComponent {
     this.removeItemsLocalStorage();
   }
 
-  async getPeople(page: number) {
+  async getPeople(page: number, category?: string, search?: string) {
     try {
-      const people = await this.apiService.getPeople(page);
+      const people = await this.apiService.getPeople(page, category, search);
       this.pagination = {
         page: page,
         pages: people.pages,
-        data: people.data,
+        results: people.results,
       };
     } catch (error) {
       console.error('Error fetching people data:', error);
@@ -84,11 +86,9 @@ export class HomeComponent {
 
   async createPerson(data: People) {
     try {
-      const today = new Date();
+      const today = moment();
       const { name, gender, dateOfBirth, maritalStatus } = data;
-
-      const birthDate = new Date(dateOfBirth);
-
+      const birthDate = moment(dateOfBirth);
 
       if (!name) {
         return this.errorToast('NAME_REQUIRED');
@@ -108,19 +108,17 @@ export class HomeComponent {
 
       await this.apiService.createPerson(data);
 
-      const todayMonth = today.getMonth() + 1;
-      const todayDay = today.getDate();
-      const birthMonth = birthDate.getMonth() + 1;
-      const birthDay = birthDate.getDate();
-
-      if (birthMonth === todayMonth && birthDay === todayDay) {
+      if (
+        today.month() === birthDate.month() &&
+        today.date() === birthDate.date()
+      ) {
         this.successToast('WISH_CONGRATULATIONS');
-        this.particles()
+        this.particles();
       }
 
       this.closeModal();
       this.successToast('CREATED_PERSON_SUCCESS');
-      this.getPeople(this.pagination.page);
+      this.getPeople(this.pagination.page, this.category, this.search);
     } catch (error) {
       console.error('Error fetching people data:', error);
     }
@@ -130,7 +128,7 @@ export class HomeComponent {
     try {
       await this.apiService.editPerson(data);
       this.closeModal();
-      this.getPeople(this.pagination.page);
+      this.getPeople(this.pagination.page, this.category, this.search);
     } catch (error) {
       console.error('Error fetching people data:', error);
     }
@@ -142,14 +140,22 @@ export class HomeComponent {
     this.successToast('SUCESS_DELETE', {
       peopleName: this.selectedPerson?.name,
     });
-    return await this.getPeople(this.pagination.page);
+    return await this.getPeople(
+      this.pagination.page,
+      this.category,
+      this.search,
+    );
   }
 
   async insertAddress(data: any) {
     await this.apiService.insertAddress(data, this.selectedPerson!.id);
     this.closeModal();
     this.successToast('CREATED_ADDRESS_SUCCESS');
-    return await this.getPeople(this.pagination.page);
+    return await this.getPeople(
+      this.pagination.page,
+      this.category,
+      this.search,
+    );
   }
 
   removeItemsLocalStorage() {
@@ -204,6 +210,21 @@ export class HomeComponent {
     this.showRegisterModal = false;
     this.showinsertAddressModal = false;
     this.showConfirmateModal = false;
+    this.showEditPeopleModal = false;
+  }
+
+  searchChange() {
+    if (this.category == 'gender') {
+      this.search = 'MALE';
+      return this.getPeople(1, this.category, this.search);
+    }
+    if (this.category == 'maritalStatus') {
+      this.search = 'SINGLE';
+      return this.getPeople(1, this.category, this.search);
+    }
+
+    this.search = '';
+    return this.getPeople(1);
   }
 
   errorToast(value: string, params?: Object) {

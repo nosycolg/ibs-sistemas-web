@@ -4,27 +4,27 @@
 
 *::-webkit-scrollbar,
 *::-webkit-scrollbar-thumb {
-    width: 26px;
-    border-radius: 13px;
-    background-clip: padding-box;
-    border: 10px solid transparent;
+  width: 26px;
+  border-radius: 13px;
+  background-clip: padding-box;
+  border: 10px solid transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 0 10px;
+  box-shadow: inset 0 0 0 10px;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(to top right, #7c3aed, #4f46e5);
-    margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    height: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(to top right, #7c3aed, #4f46e5);
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  height: 100%;
 }
 
 .toast-top-right > :nth-child(1) {
-    box-shadow: none;
+  box-shadow: none;
 }

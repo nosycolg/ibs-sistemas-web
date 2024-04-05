@@ -25,8 +25,7 @@
         </label>
         <input [(ngModel)]="person.dateOfBirth" name="dateOfBirth" required
           class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="dateOfBirth" type="date" placeholder="Date of Birth" for="datemin" for="datemax" min="1902-01-02"
-          max="2006-12-31" />
+          id="dateOfBirth" type="date" placeholder="Date of Birth" for="datemin" for="datemax" />
       </div>
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="marital-status" translate="MARITAL_STATUS">
@@ -37,7 +36,7 @@
           <option value="MARRIED" translate="MARRIED"></option>
           <option value="DIVORCED" translate="DIVORCED"></option>
           <option value="WIDOWED" translate="WIDOWED"></option>
-      </select>
+        </select>
       </div>
       <div class="flex items-center justify-between">
         <button
