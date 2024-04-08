@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input } from "@angular/core";
 import { ApiService, People, Addresses } from "../../services/app-api.service";
 import { ToastrService } from "ngx-toastr";
+import moment from "moment";
 
 @Component({
     selector: "app-login-modal",
@@ -36,6 +37,7 @@ export class RegisterModalComponent {
     @Output() register = new EventEmitter<{
         username: string;
         password: string;
+        repeatedPassword: string;
     }>();
 
     username: string = "";
@@ -50,6 +52,7 @@ export class RegisterModalComponent {
         this.register.emit({
             username: this.username,
             password: this.password,
+            repeatedPassword: this.repeatedPassword
         });
     }
 }
@@ -96,6 +99,11 @@ export class EditPersonModalComponent {
         this._selectedPerson = value;
         if (value) {
             this.person = { ...value };
+
+            this.person.dateOfBirth = moment(
+                value.dateOfBirth,
+                "DD-MM-YYYY",
+            ).format("YYYY-MM-DD");
         }
     }
     get selectedPerson(): People | null {
@@ -116,9 +124,7 @@ export class EditPersonModalComponent {
     }
 
     handleEditPerson() {
-        if (this.person) {
-            this.editPerson.emit(this.person);
-        }
+        this.editPerson.emit(this.person);
     }
 }
 

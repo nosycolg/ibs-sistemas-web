@@ -3,10 +3,8 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
 import { routes } from "./app.routes";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
-
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { ToastrModule, provideToastr } from "ngx-toastr";
 import { provideRouter } from "@angular/router";

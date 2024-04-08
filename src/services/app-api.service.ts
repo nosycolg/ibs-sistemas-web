@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-
+const backend_endpoint = "http://localhost:3000"
 export interface People {
     id: number;
     name: string;
@@ -26,6 +25,7 @@ export interface Login {
 export interface UserData {
     username: string;
     password: string;
+    repeatedPassword?: string;
 }
 
 export interface PersonData {
@@ -66,7 +66,11 @@ export interface AddressesPagesData {
     providedIn: "root",
 })
 export class ApiService {
-    constructor() {}
+    removeToken() {
+        localStorage.removeItem("USER_NAME");
+        localStorage.removeItem("BEARER_TOKEN");
+        window.location.reload();
+    }
 
     getHeaders(
         token?: string | null,
@@ -90,112 +94,105 @@ export class ApiService {
         category?: string,
         search?: string,
     ): Promise<PagesData> {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const res = await fetch(
+            `${backend_endpoint}/people?page=${page}&category=${category ? category : ""}&search=${search ? search : ""}`,
+            {
+                method: "GET",
+                headers: this.getHeaders(undefined, "application/json"),
+            },
+        );
 
-            if (!token) {
-                throw new Error("Invalid token");
-            }
-
-            const res = await fetch(
-                `http://localhost:9999/people?page=${page}&category=${category ? category : ""}&search=${search ? search : ""}`,
-                {
-                    method: "GET",
-                    headers: this.getHeaders(token, "application/json"),
-                },
-            );
-
-            if (res.status != 200) {
-                throw new Error("Unexpected error on get people.");
-            }
-
-            return await res.json();
-        } catch (error) {
-            console.error("Error fetching people data:", error);
-            throw new Error("Failed to fetch people data");
+        if (res.status != 200) {
+            throw new Error("GET_PEOPLE_ERROR");
         }
+
+        return await res.json();
     }
 
     async register(data: UserData): Promise<UserData> {
-        const res = await fetch(`http://localhost:9999/register`, {
+        const res = await fetch(`${backend_endpoint}/register`, {
             method: "POST",
-            headers: { "Content-Type": "application/json;charset=utf-8" },
+            headers: this.getHeaders(undefined, "application/json"),
             body: JSON.stringify({
                 username: data.username,
                 password: data.password,
             }),
         });
 
+        if (res.status == 404) {
+            throw new Error("USER_ALREADY_REGISTERED");
+        }
+
+        if (res.status == 409) {
+            throw new Error("CREATE_A_STRONGER_PASSWORD");
+        }
+
         if (res.status != 200) {
-            throw new Error("Unexpected error on get a user profile.");
+            throw new Error("REGISTER_USER_ERROR");
         }
 
         return await res.json();
     }
 
     async login(data: UserData): Promise<Login> {
-        const res = await fetch(`http://localhost:9999/login`, {
+        const res = await fetch(`${backend_endpoint}/login`, {
             method: "POST",
-            headers: { "Content-Type": "application/json;charset=utf-8" },
+            headers: this.getHeaders(undefined, "application/json"),
             body: JSON.stringify({
                 username: data.username,
                 password: data.password,
             }),
         });
 
+        if (res.status == 404) {
+            throw new Error("USER_OR_PASSWORD_INVALID");
+        }
+
         if (res.status != 200) {
-            throw new Error("Unexpected error on get a user profile.");
+            throw new Error("LOGIN_USER_ERROR");
         }
 
         return await res.json();
     }
 
     async createPerson(data: PersonData) {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                return;
-            }
+        const res = await fetch(`${backend_endpoint}/person`, {
+            method: "POST",
+            headers: this.getHeaders(token, "application/json"),
+            body: JSON.stringify(data),
+        });
 
-            const res = await fetch(`http://localhost:9999/person`, {
-                method: "POST",
-                headers: this.getHeaders(token, "application/json"),
-                body: JSON.stringify(data),
-            });
-
-            if (res.status != 200) {
-                throw new Error("Failed to fetch people data");
-            }
-
-            return await res.json();
-        } catch (error) {
-            console.error("Error fetching people data:", error);
+        if (res.status == 401) {
+            this.removeToken();
         }
+
+        if (res.status != 200) {
+            throw new Error("CREATE_PERSON_ERROR");
+        }
+
+        return await res.json();
     }
 
     async editPerson(data: People) {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                return;
-            }
+        const res = await fetch(`${backend_endpoint}/person/${data.id}`, {
+            method: "PUT",
+            headers: this.getHeaders(token, "application/json"),
+            body: JSON.stringify(data),
+        });
 
-            const res = await fetch(`http://localhost:9999/person/${data.id}`, {
-                method: "PUT",
-                headers: this.getHeaders(token, "application/json"),
-                body: JSON.stringify(data),
-            });
-
-            if (res.status != 200) {
-                throw new Error("Failed to fetch people data");
-            }
-
-            return await res.json();
-        } catch (error) {
-            console.error("Error fetching people data:", error);
+        if (res.status == 401) {
+            this.removeToken();
         }
+
+        if (res.status != 200) {
+            throw new Error("EDIT_PERSON_ERROR");
+        }
+
+        return await res.json();
     }
 
     async getAddresses(
@@ -204,98 +201,74 @@ export class ApiService {
         category?: string,
         search?: string,
     ): Promise<AddressesPagesData> {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                throw new Error("Failed to fetch people data");
-            }
+        const res = await fetch(
+            `${backend_endpoint}/addresses/${id}?page=${page}&category=${category ? category : ""}&search=${search ? search : ""}`,
+            {
+                method: "GET",
+                headers: this.getHeaders(token, "application/json"),
+            },
+        );
 
-            const res = await fetch(
-                `http://localhost:9999/addresses/${id}?page=${page}&category=${category ? category : ""}&search=${search ? search : ""}`,
-                {
-                    method: "GET",
-                    headers: this.getHeaders(token, "application/json"),
-                },
-            );
-
-            if (res.status != 200) {
-                throw new Error("Failed to fetch people data");
-            }
-
-            return await res.json();
-        } catch (error) {
-            console.error("Error fetching people data:", error);
-            throw new Error("Failed to fetch people data");
+        if (res.status != 200) {
+            throw new Error("GET_ADDRESSES_ERROR");
         }
+
+        return await res.json();
     }
 
     async editAddress(data: Addresses) {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                return;
-            }
+        const res = await fetch(`${backend_endpoint}/address/${data.id}`, {
+            method: "PUT",
+            headers: this.getHeaders(token, "application/json"),
+            body: JSON.stringify(data),
+        });
 
-            const res = await fetch(
-                `http://localhost:9999/address/${data.id}`,
-                {
-                    method: "PUT",
-                    headers: this.getHeaders(token, "application/json"),
-                    body: JSON.stringify(data),
-                },
-            );
-
-            if (res.status != 200) {
-                throw new Error("Failed to fetch people data");
-            }
-
-            return await res.json();
-        } catch (error) {
-            console.error("Error fetching people data:", error);
+        if (res.status == 401) {
+            this.removeToken();
         }
+
+        if (res.status != 200) {
+            throw new Error("EDIT_ADDRESS_ERROR");
+        }
+
+        return await res.json();
     }
 
     async deleteAddress(id: number) {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                throw new Error("Failed to fetch people data");
-            }
+        const res = await fetch(`${backend_endpoint}/address/${id}`, {
+            method: "DELETE",
+            headers: this.getHeaders(token, "application/json"),
+        });
 
-            const res = await fetch(`http://localhost:9999/address/${id}`, {
-                method: "DELETE",
-                headers: this.getHeaders(token, "application/json"),
-            });
+        if (res.status == 401) {
+            this.removeToken();
+        }
 
-            if (res.status != 200) {
-                throw new Error("Failed to delete address");
-            }
-        } catch (error) {
-            console.error("Error fetching people data:", error);
+        if (res.status != 200) {
+            throw new Error("DELETE_ADDRESS_ERROR");
         }
     }
 
     async deletePerson(id: number) {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                throw new Error("Failed to fetch people data");
-            }
+        const res = await fetch(`${backend_endpoint}/person/${id}`, {
+            method: "DELETE",
+            headers: this.getHeaders(token, "application/json"),
+        });
 
-            const res = await fetch(`http://localhost:9999/person/${id}`, {
-                method: "DELETE",
-                headers: this.getHeaders(token, "application/json"),
-            });
+        if (res.status == 401) {
+            this.removeToken();
+        }
 
-            if (res.status != 200) {
-                throw new Error("Failed to delete address");
-            }
-        } catch (error) {
-            console.error("Error fetching people data:", error);
+        if (res.status != 200) {
+            throw new Error("DELETE_PERSON_ERROR");
         }
     }
 
@@ -306,33 +279,29 @@ export class ApiService {
         });
 
         if (res.status != 200) {
-            throw new Error("Failed to delete address");
+            throw new Error("SEARCH_CEP_ERROR");
         }
 
         return await res.json();
     }
 
     async insertAddress(data: any, id: number) {
-        try {
-            const token = localStorage.getItem("BEARER_TOKEN");
+        const token = localStorage.getItem("BEARER_TOKEN");
 
-            if (!token) {
-                return;
-            }
+        const res = await fetch(`${backend_endpoint}/address/${id}`, {
+            method: "POST",
+            headers: this.getHeaders(token, "application/json"),
+            body: JSON.stringify(data),
+        });
 
-            const res = await fetch(`http://localhost:9999/address/${id}`, {
-                method: "POST",
-                headers: this.getHeaders(token, "application/json"),
-                body: JSON.stringify(data),
-            });
-
-            if (res.status != 200) {
-                throw new Error("Failed to fetch people data");
-            }
-
-            return await res.json();
-        } catch (error) {
-            console.error("Error fetching people data:", error);
+        if (res.status == 401) {
+            this.removeToken();
         }
+
+        if (res.status != 200) {
+            throw new Error("INSERT_ADDRESS_ERROR");
+        }
+
+        return await res.json();
     }
 }

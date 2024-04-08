@@ -133,7 +133,7 @@
                                 translate="ADDRESSES_OPTIONS">
                             </p>
                         </th>
-                        <th
+                        <th *ngIf="BEARER_TOKEN"
                             class="p-4 transition-colors border-y border-blue-gray-100 bg-blue-gray-50/50 hover:bg-blue-gray-50">
                             <p class="flex items-center justify-between gap-2 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70"
                                 translate="PERSON_OPTIONS">
@@ -171,14 +171,14 @@
                                     type="button" routerLink="/addresses/{{ person.id }}" translate="SEE_ADDRESSES"
                                     [translateParams]="{addressLength: person.addresses.length}">
                                 </button>
-                                <button
+                                <button *ngIf="BEARER_TOKEN"
                                     class="w-full block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button" (click)="openInsertAddressModal(person.name, person)"
                                     translate="INSERT_ADDRESS">
                                 </button>
                             </ng-container>
                         </td>
-                        <td class="p-4 border-b border-blue-gray-50 max-w-80">
+                        <td *ngIf="BEARER_TOKEN" class="p-4 border-b border-blue-gray-50 max-w-80">
                             <button
                                 class="w-full mb-2 block select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                 type="button" translate="EDIT_PERSON"
@@ -210,7 +210,7 @@
                 <button
                     class="select-none rounded-lg border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     type="button" (click)="getPeople(pagination.page + 1, category, search)"
-                    [disabled]="pagination.page === pagination.pages" translate="NEXT">
+                    [disabled]="pagination.pages === 0 || pagination.page === pagination.pages" translate="NEXT">
                 </button>
             </div>
         </div>

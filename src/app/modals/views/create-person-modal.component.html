@@ -1,6 +1,5 @@
-<div class="modal shadow-md rounded px-8 pt-6 pb-8">
+<div class="modal shadow-md rounded px-8 pt-6 pb-8" (keyup.enter)="handleCreatePerson()">
     <div class="w-1/2 m-auto">
-        <form>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="name" translate="NAME">
                 </label>
@@ -45,6 +44,5 @@
                     type="button" (click)="handleCreatePerson()" translate="ADD_PERSON">
                 </button>
             </div>
-        </form>
     </div>
 </div>

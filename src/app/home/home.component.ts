@@ -2,6 +2,7 @@ import { Component, ElementRef, Renderer2 } from "@angular/core";
 import moment from "moment";
 import { ToastrService } from "ngx-toastr";
 import {
+    Addresses,
     ApiService,
     PagesData,
     People,
@@ -9,6 +10,7 @@ import {
 } from "../../services/app-api.service";
 import { TranslateService } from "@ngx-translate/core";
 import confetti from "canvas-confetti";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-home",
@@ -23,6 +25,7 @@ export class HomeComponent {
     showConfirmateModal: boolean = false;
     showEditPeopleModal: boolean = false;
     USER_NAME: string | null = "";
+    BEARER_TOKEN: string | null = "";
     selectedPersonName: string = "";
     selectedPerson: People | null = null;
     pagination: PagesData = {
@@ -44,27 +47,68 @@ export class HomeComponent {
     async ngOnInit() {
         this.getPeople(this.pagination.page);
         this.USER_NAME = localStorage.getItem("USER_NAME");
+        this.BEARER_TOKEN = localStorage.getItem("BEARER_TOKEN")
     }
 
     async login(data: UserData) {
-        const loginData = await this.apiService.login(data);
-        const { token, username } = loginData;
+        try {
+            if (!data.username) {
+                return this.errorToast("USERNAME_REQUIRED");
+            }
 
-        if (token) {
-            localStorage.setItem("BEARER_TOKEN", token);
-            localStorage.setItem("USER_NAME", username);
+            if (!data.password) {
+                return this.errorToast("PASSWORD_REQUIRED");
+            }
+
+            const loginData = await this.apiService.login(data);
+            const { token, username } = loginData;
+
+            if (token) {
+                localStorage.setItem("BEARER_TOKEN", token);
+                localStorage.setItem("USER_NAME", username);
+            }
+
+            this.ngOnInit();
+            this.closeModal();
+            this.successToast("LOGIN_SUCCESSFUL");
+        } catch (error) {
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
         }
-
-        this.ngOnInit();
-        this.closeModal();
-        this.successToast("LOGIN_SUCCESSFUL");
     }
 
     async register(data: UserData) {
-        await this.apiService.register(data);
-        this.successToast("REGISTERED_SUCCESS");
-        this.closeModal();
-        return this.openLoginModal();
+        try {
+            const { username, password, repeatedPassword } = data;
+
+            if (!username) {
+                return this.errorToast("USERNAME_REQUIRED");
+            }
+
+            if (!password) {
+                return this.errorToast("PASSWORD_REQUIRED");
+            }
+
+            if (!repeatedPassword) {
+                return this.errorToast("REPEATED_PASSWORD_REQUIRED");
+            }
+
+            if (password != repeatedPassword) {
+                return this.errorToast("PASSWORDS_DO_NOT_MATCH");
+            }
+
+            await this.apiService.register(data);
+            this.successToast("REGISTERED_SUCCESS");
+            this.closeModal();
+            return this.openLoginModal();
+        } catch (error) {
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
+        }
     }
 
     async logout() {
@@ -84,7 +128,10 @@ export class HomeComponent {
                 results: people.results,
             };
         } catch (error) {
-            console.error("Error fetching people data:", error);
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
         }
     }
 
@@ -110,6 +157,8 @@ export class HomeComponent {
                 return this.errorToast("MARITAL_STATUS_REQUIRED");
             }
 
+            data.dateOfBirth = moment(data.dateOfBirth).format("DD-MM-YYYY");
+
             await this.apiService.createPerson(data);
 
             if (
@@ -124,42 +173,120 @@ export class HomeComponent {
             this.successToast("CREATED_PERSON_SUCCESS");
             this.getPeople(this.pagination.page, this.category, this.search);
         } catch (error) {
-            console.error("Error fetching people data:", error);
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
         }
     }
 
     async editPerson(data: People) {
         try {
+            const { name, gender, dateOfBirth, maritalStatus } = data;
+
+            if (!name) {
+                return this.errorToast("NAME_REQUIRED");
+            }
+
+            if (!gender) {
+                return this.errorToast("GENDER_REQUIRED");
+            }
+
+            if (dateOfBirth.length == 0) {
+                return this.errorToast("BIRTHDAY_REQUIRED");
+            }
+
+            if (!maritalStatus) {
+                return this.errorToast("MARITAL_STATUS_REQUIRED");
+            }
+
+            data.dateOfBirth = moment(data.dateOfBirth).format("DD-MM-YYYY");
+
             await this.apiService.editPerson(data);
             this.closeModal();
             this.getPeople(this.pagination.page, this.category, this.search);
         } catch (error) {
-            console.error("Error fetching people data:", error);
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
         }
     }
 
     async deletePerson(people: People) {
-        await this.apiService.deletePerson(people.id);
-        this.closeModal();
-        this.successToast("SUCESS_DELETE", {
-            peopleName: this.selectedPerson?.name,
-        });
-        return await this.getPeople(
-            this.pagination.page,
-            this.category,
-            this.search,
-        );
+        try {
+            await this.apiService.deletePerson(people.id);
+            this.closeModal();
+            this.successToast("PERSON_DELETED_SUCCESSFULLY", {
+                peopleName: this.selectedPerson?.name,
+            });
+            return await this.getPeople(
+                this.pagination.page,
+                this.category,
+                this.search,
+            );
+        } catch (error) {
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
+        }
     }
 
-    async insertAddress(data: any) {
-        await this.apiService.insertAddress(data, this.selectedPerson!.id);
-        this.closeModal();
-        this.successToast("CREATED_ADDRESS_SUCCESS");
-        return await this.getPeople(
-            this.pagination.page,
-            this.category,
-            this.search,
-        );
+    async insertAddress(data: Addresses) {
+        try {
+            const {
+                cep,
+                street,
+                streetNumber,
+                district,
+                city,
+                state,
+                country,
+            } = data;
+
+            if (!cep) {
+                return this.errorToast("CEP_REQUIRED");
+            }
+
+            if (!street) {
+                return this.errorToast("STREET_REQUIRED");
+            }
+
+            if (!streetNumber) {
+                return this.errorToast("STREET_NUMBER_REQUIRED");
+            }
+
+            if (!district) {
+                return this.errorToast("DISTRICT_REQUIRED");
+            }
+
+            if (!city) {
+                return this.errorToast("CITY_REQUIRED");
+            }
+
+            if (!state) {
+                return this.errorToast("STATE_REQUIRED");
+            }
+
+            if (!country) {
+                return this.errorToast("COUNTRY_REQUIRED");
+            }
+
+            await this.apiService.insertAddress(data, this.selectedPerson!.id);
+            this.closeModal();
+            this.successToast("CREATED_ADDRESS_SUCCESS");
+            return await this.getPeople(
+                this.pagination.page,
+                this.category,
+                this.search,
+            );
+        } catch (error) {
+            console.error(error);
+            if (error instanceof Error) {
+                return this.errorToast(error.message);
+            }
+        }
     }
 
     removeItemsLocalStorage() {
